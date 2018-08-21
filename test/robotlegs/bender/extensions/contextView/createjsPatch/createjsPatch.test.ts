@@ -9,7 +9,7 @@ import "../../../../../entry";
 
 import { assert } from "chai";
 
-import { applyCreateJSPatch } from "../../../../../../src/robotlegs/bender/extensions/contextView/createjsPatch/createjs-patch";
+import { applyCreateJSPatch } from "../../../../../../src/robotlegs/bender/bundles/createjs/patch/createjs-patch";
 
 describe("CreateJSPatch", () => {
     let stage: createjs.Stage;
