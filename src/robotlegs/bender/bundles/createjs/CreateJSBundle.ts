@@ -62,7 +62,7 @@ export class CreateJSBundle implements IBundle {
     /*============================================================================*/
 
     private handleContextView(contextView: ContextView): void {
-        applyCreateJSPatch(contextView.view);
+        applyCreateJSPatch(<any>contextView.view);
 
         this._context.configure(ContextViewListenerConfig);
     }
