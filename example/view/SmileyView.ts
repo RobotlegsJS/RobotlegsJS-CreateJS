@@ -15,6 +15,7 @@ export class SmileyView extends createjs.Container {
 
         this.drawSmiley();
         this.move();
+        this.enable();
     }
 
     private drawSmiley(): void {
@@ -53,5 +54,11 @@ export class SmileyView extends createjs.Container {
 
         this.y = Math.max(this.y, this._radius);
         this.y = Math.min(this.y, 400 - this._radius);
+    }
+
+    private enable(): void {
+        this.mouseEnabled = true;
+        this.mouseChildren = false;
+        this.cursor = "pointer";
     }
 }
