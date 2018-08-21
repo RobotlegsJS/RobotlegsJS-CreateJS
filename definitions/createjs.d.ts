@@ -5,10 +5,13 @@
 //  in accordance with the terms of the license agreement accompanying it.
 // ------------------------------------------------------------------------------
 
-/// <reference path="../definitions/createjs.d.ts" />
-/// <reference types="mocha" />
+/**
+ * Augment CreateJS module to recognize EventDispatcher patch.
+ */
+declare namespace createjs {
+    interface IEventDispatcher {
+        once(type: string, listener: Function, thisObject?: any, useCapture?: boolean, priority?: number): void;
+    }
 
-import "reflect-metadata";
-import "bluebird/js/browser/bluebird";
-import "es6-symbol/implement";
-import "es6-map/implement";
+    export interface EventDispatcher extends IEventDispatcher {}
+}
