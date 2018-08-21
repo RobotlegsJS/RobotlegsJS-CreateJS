@@ -5,10 +5,6 @@
 //  in accordance with the terms of the license agreement accompanying it.
 // ------------------------------------------------------------------------------
 
-/// <reference path="../definitions/createjs.d.ts" />
-
-import "reflect-metadata";
-
 import { Game } from "./Game";
 
 (<any>window).initGame = () => {
