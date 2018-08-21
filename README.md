@@ -61,7 +61,7 @@ Usage
 ---
 
 ```typescript
-/// <reference path="../definitions/createjs.d.ts" />
+/// <reference path="node_modules/@robotlegsjs/createjs/definitions/createjs.d.ts" />
 
 import "reflect-metadata";
 
