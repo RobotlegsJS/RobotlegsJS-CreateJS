@@ -7,6 +7,8 @@
 
 import { IClass } from "@robotlegsjs/core";
 
+import { IDisplayObject } from "../../contextView/api/IDisplayObject";
+
 /**
  * View handler contract
  */
@@ -16,5 +18,5 @@ export interface IViewHandler {
      * @param view The view instance to handle
      * @param type The class of the view instance
      */
-    handleView(view: createjs.DisplayObject, type: IClass<any>): void;
+    handleView(view: IDisplayObject, type: IClass<any>): void;
 }

@@ -7,6 +7,8 @@
 
 import { Event } from "@robotlegsjs/core";
 
+import { IDisplayObjectContainer } from "../../contextView/api/IDisplayObjectContainer";
+
 /**
  * Container existence event
  * @private
@@ -28,12 +30,12 @@ export class ContainerRegistryEvent extends Event {
     /* Public Properties                                                          */
     /*============================================================================*/
 
-    private _container: createjs.Container;
+    private _container: IDisplayObjectContainer;
 
     /**
      * The container associated with this event
      */
-    public get container(): createjs.Container {
+    public get container(): IDisplayObjectContainer {
         return this._container;
     }
 
@@ -46,7 +48,7 @@ export class ContainerRegistryEvent extends Event {
      * @param type The event type
      * @param container The container associated with this event
      */
-    constructor(type: string, container: createjs.Container) {
+    constructor(type: string, container: IDisplayObjectContainer) {
         super(type);
         this._container = container;
     }

@@ -7,13 +7,15 @@
 
 import { injectable, inject, EventDispatcher } from "@robotlegsjs/core";
 
+import { IDisplayObjectContainer } from "../../contextView/api/IDisplayObjectContainer";
+
 import { IViewHandler } from "../api/IViewHandler";
 import { IViewManager } from "../api/IViewManager";
 
 import { ViewManagerEvent } from "./ViewManagerEvent";
 
-import { ContainerRegistry } from "./ContainerRegistry";
-import { ContainerBinding } from "./ContainerBinding";
+import { ContainerRegistry } from "../impl/ContainerRegistry";
+import { ContainerBinding } from "../impl/ContainerBinding";
 
 /*[Event(name="containerAdd", type="robotlegs.bender.extensions.viewManager.impl.ViewManagerEvent")]*/
 /*[Event(name="containerRemove", type="robotlegs.bender.extensions.viewManager.impl.ViewManagerEvent")]*/
@@ -29,12 +31,12 @@ export class ViewManager extends EventDispatcher implements IViewManager {
     /* Public Properties                                                          */
     /*============================================================================*/
 
-    private _containers: createjs.Container[] = [];
+    private _containers: IDisplayObjectContainer[] = [];
 
     /**
      * @inheritDoc
      */
-    public get containers(): createjs.Container[] {
+    public get containers(): IDisplayObjectContainer[] {
         return this._containers;
     }
 
@@ -65,7 +67,7 @@ export class ViewManager extends EventDispatcher implements IViewManager {
     /**
      * @inheritDoc
      */
-    public addContainer(container: createjs.Container): void {
+    public addContainer(container: IDisplayObjectContainer): void {
         if (!this.validContainer(container)) {
             return;
         }
@@ -81,7 +83,7 @@ export class ViewManager extends EventDispatcher implements IViewManager {
     /**
      * @inheritDoc
      */
-    public removeContainer(container: createjs.Container): void {
+    public removeContainer(container: IDisplayObjectContainer): void {
         let index: number = this._containers.indexOf(container);
 
         if (index === -1) {
@@ -151,7 +153,7 @@ export class ViewManager extends EventDispatcher implements IViewManager {
     /* Private Functions                                                          */
     /*============================================================================*/
 
-    private validContainer(container: createjs.Container): boolean {
+    private validContainer(container: IDisplayObjectContainer): boolean {
         let isValid: boolean = this._containers.indexOf(container) < 0;
 
         if (isValid) {
