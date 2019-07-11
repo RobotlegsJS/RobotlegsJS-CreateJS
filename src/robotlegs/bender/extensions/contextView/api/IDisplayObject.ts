@@ -5,10 +5,11 @@
 //  in accordance with the terms of the license agreement accompanying it.
 // ------------------------------------------------------------------------------
 
-/// <reference path="../definitions/createjs.d.ts" />
-/// <reference types="mocha" />
+import { IEventDispatcher } from "@robotlegsjs/core";
 
-import "reflect-metadata";
-import "bluebird/js/browser/bluebird";
-import "es6-symbol/implement";
-import "es6-map/implement";
+import { IDisplayObjectContainer } from "./IDisplayObjectContainer";
+
+export let IDisplayObject = Symbol("IDisplayObject");
+export interface IDisplayObject extends IEventDispatcher {
+    parent: IDisplayObjectContainer;
+}

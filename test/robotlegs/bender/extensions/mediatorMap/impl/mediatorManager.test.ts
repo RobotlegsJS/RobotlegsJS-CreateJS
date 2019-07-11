@@ -13,7 +13,7 @@ import { assert } from "chai";
 
 import { instantiateUnmapped, IInjector, ITypeFilter, RobotlegsInjector, TypeMatcher } from "@robotlegsjs/core";
 
-import { applyCreateJSPatch } from "../../../../../../src/robotlegs/bender/extensions/contextView/createjsPatch/createjs-patch";
+import { applyCreateJSPatch } from "../../../../../../src/robotlegs/bender/bundles/createjs/patch/createjs-patch";
 
 import { IMediator } from "../../../../../../src/robotlegs/bender/extensions/mediatorMap/api/IMediator";
 import { IMediatorMapping } from "../../../../../../src/robotlegs/bender/extensions/mediatorMap/api/IMediatorMapping";

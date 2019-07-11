@@ -10,16 +10,20 @@
  * - emit "added"/"removed" events on stage
  */
 
+import "./eventDispatcher-patch";
+
+import { Event } from "@robotlegsjs/core";
+
 function isConnectedToStage(stage: createjs.Stage, displayObject: createjs.DisplayObject): boolean {
     return displayObject.stage === stage;
 }
 
 function emitAddedEvent(stage: createjs.Stage, target: createjs.DisplayObject): void {
-    let event: createjs.Event = new createjs.Event("added", true, false);
+    let event: Event = new Event("addedToStage", true);
 
     event.data = target;
 
-    stage.dispatchEvent(event);
+    target.dispatchEvent(event);
 
     if (target instanceof createjs.Container) {
         target.children.forEach(child => emitAddedEvent(stage, child));
@@ -27,11 +31,11 @@ function emitAddedEvent(stage: createjs.Stage, target: createjs.DisplayObject): 
 }
 
 function emitRemovedEvent(stage: createjs.Stage, target: createjs.DisplayObject): void {
-    let event: createjs.Event = new createjs.Event("removed", true, false);
+    let event: Event = new Event("removedFromStage", true);
 
     event.data = target;
 
-    stage.dispatchEvent(event);
+    target.dispatchEvent(event);
 
     if (target instanceof createjs.Container) {
         target.children.forEach(child => emitRemovedEvent(stage, child));

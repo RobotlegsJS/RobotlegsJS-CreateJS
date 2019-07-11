@@ -7,6 +7,9 @@
 
 import { IClass, EventDispatcher } from "@robotlegsjs/core";
 
+import { IDisplayObject } from "../../contextView/api/IDisplayObject";
+import { IDisplayObjectContainer } from "../../contextView/api/IDisplayObjectContainer";
+
 import { IViewHandler } from "../api/IViewHandler";
 
 import { ContainerBindingEvent } from "./ContainerBindingEvent";
@@ -36,12 +39,12 @@ export class ContainerBinding extends EventDispatcher {
         this._parent = value;
     }
 
-    private _container: createjs.Container;
+    private _container: IDisplayObjectContainer;
 
     /**
      * @private
      */
-    public get container(): createjs.Container {
+    public get container(): IDisplayObjectContainer {
         return this._container;
     }
 
@@ -58,7 +61,7 @@ export class ContainerBinding extends EventDispatcher {
     /**
      * @private
      */
-    constructor(container: createjs.Container) {
+    constructor(container: IDisplayObjectContainer) {
         super();
         this._container = container;
     }
@@ -93,7 +96,7 @@ export class ContainerBinding extends EventDispatcher {
     /**
      * @private
      */
-    public handleView(view: createjs.DisplayObject, type: IClass<any>): void {
+    public handleView(view: IDisplayObject, type: IClass<any>): void {
         let length: number = this._handlers.length;
         for (let i: number = 0; i < length; i++) {
             let handler: IViewHandler = this._handlers[i];

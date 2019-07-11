@@ -7,6 +7,9 @@
 
 import { IClass } from "@robotlegsjs/core";
 
+import { IDisplayObject } from "../../contextView/api/IDisplayObject";
+import { IDisplayObjectContainer } from "../../contextView/api/IDisplayObjectContainer";
+
 import { ContainerRegistryEvent } from "./ContainerRegistryEvent";
 
 import { ContainerRegistry } from "./ContainerRegistry";
@@ -23,7 +26,6 @@ export class ManualStageObserver {
     /*============================================================================*/
 
     private _registry: ContainerRegistry;
-    private _eventListener: (event: ConfigureViewEvent) => void;
 
     /*============================================================================*/
     /* Constructor                                                                */
@@ -36,8 +38,8 @@ export class ManualStageObserver {
         this._registry = containerRegistry;
 
         // We care about all containers (not just roots)
-        this._registry.addEventListener(ContainerRegistryEvent.CONTAINER_ADD, this.onContainerAdd, this);
-        this._registry.addEventListener(ContainerRegistryEvent.CONTAINER_REMOVE, this.onContainerRemove, this);
+        this._registry.addEventListener(ContainerRegistryEvent.CONTAINER_ADD, this.onContainerAdd);
+        this._registry.addEventListener(ContainerRegistryEvent.CONTAINER_REMOVE, this.onContainerRemove);
 
         // We might have arrived late on the scene
         this._registry.bindings.forEach((binding: ContainerBinding) => {
@@ -53,8 +55,8 @@ export class ManualStageObserver {
      * @private
      */
     public destroy(): void {
-        this._registry.removeEventListener(ContainerRegistryEvent.CONTAINER_ADD, this.onContainerAdd, this);
-        this._registry.removeEventListener(ContainerRegistryEvent.CONTAINER_REMOVE, this.onContainerRemove, this);
+        this._registry.removeEventListener(ContainerRegistryEvent.CONTAINER_ADD, this.onContainerAdd);
+        this._registry.removeEventListener(ContainerRegistryEvent.CONTAINER_REMOVE, this.onContainerRemove);
 
         this._registry.rootBindings.forEach((binding: ContainerBinding) => {
             this.removeContainerListener(binding.container);
@@ -65,32 +67,31 @@ export class ManualStageObserver {
     /* Private Functions                                                          */
     /*============================================================================*/
 
-    private onContainerAdd(event: ContainerRegistryEvent): void {
+    private onContainerAdd = (event: ContainerRegistryEvent): void => {
         this.addContainerListener(event.container);
-    }
+    };
 
-    private onContainerRemove(event: ContainerRegistryEvent): void {
+    private onContainerRemove = (event: ContainerRegistryEvent): void => {
         this.removeContainerListener(event.container);
-    }
+    };
 
-    private addContainerListener(container: createjs.Container): void {
+    private addContainerListener(container: IDisplayObjectContainer): void {
         // We're interested in ALL container bindings
         // but just for normal, bubbling events
-        this._eventListener = this.onConfigureView.bind(this);
-        container.addEventListener(ConfigureViewEvent.CONFIGURE_VIEW, this._eventListener);
+        container.addEventListener(ConfigureViewEvent.CONFIGURE_VIEW, this.onConfigureView);
     }
 
-    private removeContainerListener(container: createjs.Container): void {
-        container.removeEventListener(ConfigureViewEvent.CONFIGURE_VIEW, this._eventListener);
+    private removeContainerListener(container: IDisplayObjectContainer): void {
+        container.removeEventListener(ConfigureViewEvent.CONFIGURE_VIEW, this.onConfigureView);
     }
 
-    private onConfigureView(event: ConfigureViewEvent): void {
+    private onConfigureView = (event: ConfigureViewEvent): void => {
         // Stop that event!
         event.stopPropagation();
 
-        let container: createjs.Container = <createjs.Container>event.currentTarget;
-        let view: createjs.DisplayObject = <createjs.DisplayObject>event.target;
+        let container: IDisplayObjectContainer = <IDisplayObjectContainer>event.currentTarget;
+        let view: IDisplayObject = <IDisplayObject>event.target;
         let type: IClass<any> = <IClass<any>>view.constructor;
         this._registry.getBinding(container).handleView(view, type);
-    }
+    };
 }

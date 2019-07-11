@@ -9,7 +9,7 @@ import "../../../../../entry";
 
 import { assert } from "chai";
 
-import { applyCreateJSPatch } from "../../../../../../src/robotlegs/bender/extensions/contextView/createjsPatch/createjs-patch";
+import { applyCreateJSPatch } from "../../../../../../src/robotlegs/bender/bundles/createjs/patch/createjs-patch";
 
 describe("CreateJSPatch", () => {
     let stage: createjs.Stage;
@@ -58,7 +58,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("added", () => {
+        stage.on("addedToStage", () => {
             count++;
         });
 
@@ -89,7 +89,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("added", () => {
+        stage.on("addedToStage", () => {
             count++;
         });
 
@@ -109,7 +109,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("added", () => {
+        stage.on("addedToStage", () => {
             count++;
         });
 
@@ -133,7 +133,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("added", () => {
+        stage.on("addedToStage", () => {
             count++;
         });
 
@@ -161,7 +161,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("added", () => {
+        stage.on("addedToStage", () => {
             count++;
         });
 
@@ -229,7 +229,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("added", () => {
+        stage.on("addedToStage", () => {
             count++;
         });
 
@@ -253,7 +253,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("added", () => {
+        stage.on("addedToStage", () => {
             count++;
         });
 
@@ -277,7 +277,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("added", () => {
+        stage.on("addedToStage", () => {
             count++;
         });
 
@@ -326,7 +326,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("removed", () => {
+        stage.on("removedFromStage", () => {
             count++;
         });
 
@@ -352,7 +352,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("removed", () => {
+        stage.on("removedFromStage", () => {
             count++;
         });
 
@@ -382,7 +382,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("removed", () => {
+        stage.on("removedFromStage", () => {
             count++;
         });
 
@@ -419,7 +419,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("removed", () => {
+        stage.on("removedFromStage", () => {
             count++;
         });
 
@@ -445,7 +445,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("removed", () => {
+        stage.on("removedFromStage", () => {
             count++;
         });
 
@@ -487,7 +487,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("removed", () => {
+        stage.on("removedFromStage", () => {
             count++;
         });
 
@@ -509,7 +509,7 @@ describe("CreateJSPatch", () => {
 
         let count: number = 0;
 
-        stage.on("removed", () => {
+        stage.on("removedFromStage", () => {
             count++;
         });
 
@@ -550,11 +550,11 @@ describe("CreateJSPatch", () => {
         let countAdded: number = 0;
         let countRemoved: number = 0;
 
-        stage.on("added", () => {
+        stage.on("addedToStage", () => {
             countAdded++;
         });
 
-        stage.on("removed", () => {
+        stage.on("removedFromStage", () => {
             countRemoved++;
         });
 

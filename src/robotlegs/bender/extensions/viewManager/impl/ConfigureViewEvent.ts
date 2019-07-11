@@ -7,6 +7,8 @@
 
 import { Event } from "@robotlegsjs/core";
 
+import { IDisplayObjectContainer } from "../../contextView/api/IDisplayObjectContainer";
+
 /**
  * View Configuration Event
  * @private
@@ -22,12 +24,12 @@ export class ConfigureViewEvent extends Event {
     /* Public Properties                                                          */
     /*============================================================================*/
 
-    private _view: createjs.Container;
+    private _view: IDisplayObjectContainer;
 
     /**
      * The view instance associated with this event
      */
-    public get view(): createjs.Container {
+    public get view(): IDisplayObjectContainer {
         return this._view;
     }
 
@@ -40,7 +42,7 @@ export class ConfigureViewEvent extends Event {
      * @param type The event type
      * @param view The associated view instance
      */
-    constructor(type: string, view: createjs.Container) {
+    constructor(type: string, view: IDisplayObjectContainer) {
         super(type, true);
         this._view = view;
     }

@@ -10,6 +10,7 @@ export class RobotlegsView extends createjs.Container {
         super();
 
         this.loadLogo();
+        this.enable();
     }
 
     private loadLogo(): void {
@@ -36,8 +37,11 @@ export class RobotlegsView extends createjs.Container {
         graphics.drawRect(bitmap.x, bitmap.y, logo.width, logo.height);
 
         this.hitArea = area;
+    }
 
+    private enable(): void {
         this.mouseEnabled = true;
         this.mouseChildren = false;
+        this.cursor = "pointer";
     }
 }

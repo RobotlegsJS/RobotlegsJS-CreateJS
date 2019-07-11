@@ -11,7 +11,7 @@ import { assert } from "chai";
 
 import { IClass } from "@robotlegsjs/core";
 
-import { applyCreateJSPatch } from "../../../../../../src/robotlegs/bender/extensions/contextView/createjsPatch/createjs-patch";
+import { applyCreateJSPatch } from "../../../../../../src/robotlegs/bender/bundles/createjs/patch/createjs-patch";
 import { ContainerRegistry } from "../../../../../../src/robotlegs/bender/extensions/viewManager/impl/ContainerRegistry";
 import { StageObserver } from "../../../../../../src/robotlegs/bender/extensions/viewManager/impl/StageObserver";
 import { ViewManager } from "../../../../../../src/robotlegs/bender/extensions/viewManager/impl/ViewManager";

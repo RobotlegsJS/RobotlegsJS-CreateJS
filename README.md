@@ -61,6 +61,10 @@ Usage
 ---
 
 ```typescript
+/// <reference path="node_modules/@robotlegsjs/createjs/definitions/createjs.d.ts" />
+
+import "reflect-metadata";
+
 import { Context, MVCSBundle } from "@robotlegsjs/core";
 
 import { ContextView, CreateJSBundle } from "@robotlegsjs/createjs";

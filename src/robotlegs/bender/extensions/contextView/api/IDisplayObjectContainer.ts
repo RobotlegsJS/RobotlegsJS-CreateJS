@@ -5,10 +5,11 @@
 //  in accordance with the terms of the license agreement accompanying it.
 // ------------------------------------------------------------------------------
 
-/// <reference path="../definitions/createjs.d.ts" />
-/// <reference types="mocha" />
+import { IDisplayObject } from "./IDisplayObject";
 
-import "reflect-metadata";
-import "bluebird/js/browser/bluebird";
-import "es6-symbol/implement";
-import "es6-map/implement";
+export let IDisplayObjectContainer = Symbol("IDisplayObjectContainer");
+export interface IDisplayObjectContainer extends IDisplayObject {
+    children: IDisplayObject[];
+
+    contains(child: IDisplayObject): boolean;
+}

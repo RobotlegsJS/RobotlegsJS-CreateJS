@@ -7,6 +7,9 @@
 
 import { IClass } from "@robotlegsjs/core";
 
+import { IDisplayObject } from "../../contextView/api/IDisplayObject";
+import { IDisplayObjectContainer } from "../../contextView/api/IDisplayObjectContainer";
+
 import { ContainerBinding } from "./ContainerBinding";
 
 /**
@@ -37,7 +40,7 @@ export class StageCrawler {
     /**
      * @private
      */
-    public scan(container: createjs.Container): void {
+    public scan(container: IDisplayObjectContainer): void {
         this.scanContainer(container);
     }
 
@@ -45,19 +48,19 @@ export class StageCrawler {
     /* Private Functions                                                          */
     /*============================================================================*/
 
-    private scanContainer(container: createjs.Container): void {
+    private scanContainer(container: IDisplayObjectContainer): void {
         this.processView(container);
 
-        container.children.forEach(child => {
-            if (child instanceof createjs.Container) {
-                this.scanContainer(child);
+        container.children.forEach((child: IDisplayObject) => {
+            if ((<IDisplayObjectContainer>child).children !== undefined) {
+                this.scanContainer(<IDisplayObjectContainer>child);
             } else {
                 this.processView(child);
             }
         });
     }
 
-    private processView(view: createjs.DisplayObject): void {
+    private processView(view: IDisplayObject): void {
         this._binding.handleView(view, <IClass<any>>view.constructor);
     }
 }

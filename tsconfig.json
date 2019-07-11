@@ -25,6 +25,7 @@
     "./src/**/*.ts"
   ],
   "files": [
-    "./node_modules/@types/easeljs/index.d.ts"
+    "./node_modules/@types/easeljs/index.d.ts",
+    "./definitions/createjs.d.ts"
   ]
 }

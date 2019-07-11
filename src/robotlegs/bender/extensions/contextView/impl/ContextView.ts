@@ -8,12 +8,13 @@
 import { IConfig } from "@robotlegsjs/core";
 
 import { IContextView } from "../api/IContextView";
+import { IDisplayObjectContainer } from "../api/IDisplayObjectContainer";
 
 /**
  * The Context View represents the root Container for a Context
  */
 export class ContextView implements IContextView, IConfig {
-    private _view: createjs.Stage;
+    private _view: IDisplayObjectContainer;
 
     /*============================================================================*/
     /* Constructor                                                                */
@@ -23,7 +24,7 @@ export class ContextView implements IContextView, IConfig {
      * The Context View represents the root Container for a Context
      * @param view The root Container for this Context
      */
-    constructor(view: createjs.Stage) {
+    constructor(view: IDisplayObjectContainer) {
         if (view !== null && view !== undefined) {
             this._view = view;
         } else {
@@ -43,7 +44,7 @@ export class ContextView implements IContextView, IConfig {
     /**
      * The root Container for this Context
      */
-    public get view(): createjs.Stage {
+    public get view(): IDisplayObjectContainer {
         return this._view;
     }
 }

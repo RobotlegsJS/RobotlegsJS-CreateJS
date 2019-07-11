@@ -6,6 +6,7 @@ dist/lib
 dist-test
 gh-pages
 lib
+lib-example
 lib-test
 node_modules
 *.as

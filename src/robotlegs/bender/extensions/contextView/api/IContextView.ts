@@ -5,7 +5,9 @@
 //  in accordance with the terms of the license agreement accompanying it.
 // ------------------------------------------------------------------------------
 
+import { IDisplayObjectContainer } from "./IDisplayObjectContainer";
+
 export let IContextView = Symbol("IContextView");
 export interface IContextView {
-    view: createjs.Stage;
+    view: IDisplayObjectContainer;
 }

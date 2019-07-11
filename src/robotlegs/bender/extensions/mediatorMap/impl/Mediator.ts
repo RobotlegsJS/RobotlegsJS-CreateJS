@@ -9,30 +9,22 @@ import { injectable, inject, IClass, IEvent, IEventMap, IEventDispatcher, Event 
 
 import { IMediator } from "../api/IMediator";
 
-import { ConvertToEventDispatcher } from "./ConvertToEventDispatcher";
-
 /**
  * Classic Robotlegs mediator implementation
  *
  * <p>Override initialize and destroy to hook into the mediator lifecycle.</p>
  */
 @injectable()
-export abstract class Mediator<T extends createjs.EventDispatcher> implements IMediator {
-    /*============================================================================*/
-    /* Private Properties                                                         */
-    /*============================================================================*/
-
-    private _viewConverted: ConvertToEventDispatcher;
-
+export abstract class Mediator<T extends IEventDispatcher> implements IMediator {
     /*============================================================================*/
     /* Protected Properties                                                       */
     /*============================================================================*/
 
     @inject(IEventMap)
-    protected _eventMap: IEventMap;
+    protected eventMap: IEventMap;
 
     @inject(IEventDispatcher)
-    protected _eventDispatcher: IEventDispatcher;
+    protected eventDispatcher: IEventDispatcher;
 
     protected _viewComponent: T;
 
@@ -42,7 +34,6 @@ export abstract class Mediator<T extends createjs.EventDispatcher> implements IM
 
     public set view(view: T) {
         this._viewComponent = view;
-        this._viewConverted = new ConvertToEventDispatcher(this._viewComponent);
     }
 
     public get view(): T {
@@ -68,7 +59,7 @@ export abstract class Mediator<T extends createjs.EventDispatcher> implements IM
      * Cleans up listeners mapped through the local EventMap.
      */
     public postDestroy(): void {
-        this._eventMap.unmapAllListeners();
+        this.eventMap.unmapAllListeners();
     }
 
     /*============================================================================*/
@@ -83,7 +74,7 @@ export abstract class Mediator<T extends createjs.EventDispatcher> implements IM
         useCapture?: boolean,
         priority?: number
     ): void {
-        this._eventMap.mapListener(this._viewConverted, eventString, listener, thisObject, eventClass, useCapture, priority);
+        this.eventMap.mapListener(this._viewComponent, eventString, listener, thisObject, eventClass, useCapture, priority);
     }
 
     protected addContextListener(
@@ -94,7 +85,7 @@ export abstract class Mediator<T extends createjs.EventDispatcher> implements IM
         useCapture?: boolean,
         priority?: number
     ): void {
-        this._eventMap.mapListener(this._eventDispatcher, eventString, listener, thisObject, eventClass, useCapture, priority);
+        this.eventMap.mapListener(this.eventDispatcher, eventString, listener, thisObject, eventClass, useCapture, priority);
     }
 
     protected addDomListener(
@@ -103,7 +94,7 @@ export abstract class Mediator<T extends createjs.EventDispatcher> implements IM
         listener: EventListenerOrEventListenerObject,
         options?: boolean | AddEventListenerOptions
     ): void {
-        this._eventMap.mapDomListener(eventTarget, eventString, listener, options);
+        this.eventMap.mapDomListener(eventTarget, eventString, listener, options);
     }
 
     protected removeViewListener(
@@ -113,7 +104,7 @@ export abstract class Mediator<T extends createjs.EventDispatcher> implements IM
         eventClass?: IClass<IEvent>,
         useCapture?: boolean
     ): void {
-        this._eventMap.unmapListener(this._viewConverted, eventString, listener, thisObject, eventClass, useCapture);
+        this.eventMap.unmapListener(this._viewComponent, eventString, listener, thisObject, eventClass, useCapture);
     }
 
     protected removeContextListener(
@@ -123,16 +114,16 @@ export abstract class Mediator<T extends createjs.EventDispatcher> implements IM
         eventClass?: IClass<IEvent>,
         useCapture?: boolean
     ): void {
-        this._eventMap.unmapListener(this._eventDispatcher, eventString, listener, thisObject, eventClass, useCapture);
+        this.eventMap.unmapListener(this.eventDispatcher, eventString, listener, thisObject, eventClass, useCapture);
     }
 
     protected removeDomListener(eventTarget: EventTarget, eventString: string, listener: EventListenerOrEventListenerObject): void {
-        this._eventMap.unmapDomListener(eventTarget, eventString, listener);
+        this.eventMap.unmapDomListener(eventTarget, eventString, listener);
     }
 
     protected dispatch(event: Event): void {
-        if (this._eventDispatcher.hasEventListener(event.type)) {
-            this._eventDispatcher.dispatchEvent(event);
+        if (this.eventDispatcher.hasEventListener(event.type)) {
+            this.eventDispatcher.dispatchEvent(event);
         }
     }
 }
